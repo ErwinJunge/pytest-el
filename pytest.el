@@ -128,6 +128,7 @@ Optional argument FLAGS py.test command line flags."
          (cmd-flags (if flags flags pytest-cmd-flags))
          (use-comint (s-contains? "pdb" cmd-flags)))
     (funcall #'(lambda (command)
+                 (setq compile-command command)
                  (compilation-start command use-comint
                                     (lambda (mode) (concat "*pytest*"))))
              (pytest-cmd-format pytest-cmd-format-string where pytest cmd-flags tnames))
